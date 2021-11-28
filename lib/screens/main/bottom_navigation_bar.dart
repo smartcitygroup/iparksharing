@@ -26,6 +26,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
   LotsModel _lotsModel;
   List<Lots> items = [];
   List<Marker> allMarkers = [];
+  int pressedLot = 0;
 
   @override
   void initState() {
@@ -70,6 +71,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
               markerId: MarkerId(element.name),
               draggable: false,
               onTap: () {
+                pressedLot = items.indexOf(element);
                 setState(() {
                   isExpanded = isExpanded == true ? false : true;
                 });
@@ -319,7 +321,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
                       padding: EdgeInsets.only(
-                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.08 :  MediaQuery.of(context).size.height * 0.2,
+                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.2 :  MediaQuery.of(context).size.height * 0.3,
                           left: 10),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(49.05722903231597, 20.303223278767245),
@@ -333,7 +335,9 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       mapToolbarEnabled: false,
                       mapType: MapType.normal,
                       onTap: (lat) {
-
+                        setState(() {
+                          isExpanded = false;
+                        });
                       },
                     ),
                   ),
@@ -344,8 +348,8 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       duration: const Duration(milliseconds: 400),
                       padding: MediaQuery.of(context).viewInsets,
                       height: (!isExpanded)
-                          ? MediaQuery.of(context).size.height * 0.08
-                          : MediaQuery.of(context).size.height * 0.2,
+                          ? MediaQuery.of(context).size.height * 0.2
+                          : MediaQuery.of(context).size.height * 0.3,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         borderRadius:
@@ -357,8 +361,8 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             (!isExpanded)
-                                ? lowWidget(context)
-                                : bodyWidget(context)
+                                ? bodyWidget(context)
+                                : lowWidget(context)
                           ]),
                     ),
                   ),
@@ -401,6 +405,32 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
             ),
           ),
           height5Space,
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              items[pressedLot].name.toUpperCase(),
+              maxLines: 1,
+              style: iPark.headerInfoTextStyle(Theme
+                  .of(context)
+                  .secondaryHeaderColor),
+            ),
+          ),
+          height5Space,
+          Padding(
+            padding: const EdgeInsets.only(
+                left: Dimensions.marginSize, right: Dimensions.marginSize),
+          child:
+          Container(
+            height: 50,
+            color: Colors.transparent,
+            child: iPark.iParkSignButton(
+                context: context,
+                text: "rezervovať".toUpperCase(),
+                onClicked: () async {
+                  iPark.iParkLoadingDialog(context);
+                }),
+          ),
+          ),
         ],
       ),
     );
