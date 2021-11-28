@@ -325,7 +325,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                           left: 10),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(49.05722903231597, 20.303223278767245),
-                          zoom: 18.0),
+                          zoom: 14.0),
                       markers: Set.of(allMarkers),
                       onMapCreated: mapCreated,
                       zoomControlsEnabled: false,
