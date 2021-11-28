@@ -321,7 +321,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
                       padding: EdgeInsets.only(
-                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.2 :  MediaQuery.of(context).size.height * 0.3,
+                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.2 :  MediaQuery.of(context).size.height * 0.25,
                           left: 10),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(49.05722903231597, 20.303223278767245),
@@ -349,7 +349,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       padding: MediaQuery.of(context).viewInsets,
                       height: (!isExpanded)
                           ? MediaQuery.of(context).size.height * 0.2
-                          : MediaQuery.of(context).size.height * 0.3,
+                          : MediaQuery.of(context).size.height * 0.25,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         borderRadius:
