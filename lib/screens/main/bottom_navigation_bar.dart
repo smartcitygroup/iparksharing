@@ -53,7 +53,6 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
       });
       items.clear();
       for (int i = 0; i < _lotsModel.data.length; i++) {
-        print("KOKOT=" + _lotsModel.data.length.toString());
         Lots obj = new Lots();
         obj.name = _lotsModel.data[i]["name"];
         obj.ID = _lotsModel.data[i]["ID"];
