@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,12 +25,23 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
   bool isExpanded = false;
   LotsModel _lotsModel;
   List<Lots> items = [];
+  List<Marker> allMarkers = [];
 
   @override
   void initState() {
     super.initState();
     currentIndex = 0;
     getSharingLots();
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
   }
 
   void getSharingLots() async {
@@ -39,15 +52,31 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
       });
       items.clear();
       for (int i = 0; i < _lotsModel.data.length; i++) {
+        print("KOKOT=" + _lotsModel.data.length.toString());
         Lots obj = new Lots();
         obj.name = _lotsModel.data[i]["name"];
         obj.ID = _lotsModel.data[i]["ID"];
-        obj.lat = double.parse(_lotsModel.data[i]["lat"].toString());
-        obj.lon = double.parse(_lotsModel.data[i]["lon"].toString());
+        obj.lat = _lotsModel.data[i]["lat"];
+        obj.lon = _lotsModel.data[i]["lng"];
         print(_lotsModel.data[i]["name"]);
         items.add(obj);
       }
-      //allMarkers.clear();
+      items.forEach((element) async {
+        final Uint8List markerIcon =
+        await getBytesFromAsset("assets/images/atributes/location-pin.png", 120);
+        setState(() {
+          allMarkers.add(Marker(
+              icon: BitmapDescriptor.fromBytes(markerIcon),
+              markerId: MarkerId(element.name),
+              draggable: false,
+              onTap: () {
+                setState(() {
+                  isExpanded = isExpanded == true ? false : true;
+                });
+              },
+              position: LatLng(element.lat, element.lon)));
+        });
+      });
     } catch(e) {
       print(e);
     }
@@ -295,6 +324,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       initialCameraPosition: CameraPosition(
                           target: LatLng(49.05722903231597, 20.303223278767245),
                           zoom: 18.0),
+                      markers: Set.of(allMarkers),
                       onMapCreated: mapCreated,
                       zoomControlsEnabled: false,
                       compassEnabled: false,
@@ -303,9 +333,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       mapToolbarEnabled: false,
                       mapType: MapType.normal,
                       onTap: (lat) {
-                        setState(() {
-                          isExpanded = isExpanded == true ? false : true;
-                        });
+
                       },
                     ),
                   ),
