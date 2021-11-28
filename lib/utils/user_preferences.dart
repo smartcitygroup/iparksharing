@@ -11,6 +11,7 @@ class UserPreferences {
   static const _keySaveUserFirstName = 'save_user_first_name';
   static const _keySaveUserSecondName = 'save_user_second_name';
   static const _keyUserWallet = 'user_wallet';
+  static const _keySaveUserID = 'save_user_id';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -63,4 +64,10 @@ class UserPreferences {
       await _preferences.setString(_keyUserToken, token);
 
   static String getUserToken() => _preferences.get(_keyUserToken);
+
+  //SaveUserID
+  static Future saveUserID(int ID) async =>
+      await _preferences.setInt(_keySaveUserID, ID);
+
+  static int getSaveUserID() => _preferences.get(_keySaveUserID);
 }
