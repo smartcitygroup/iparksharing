@@ -71,7 +71,6 @@ class _SplashScreenState extends State<SplashScreen> {
     startTime();
   }
 
-
   @override
   Widget build(BuildContext context) {
 
