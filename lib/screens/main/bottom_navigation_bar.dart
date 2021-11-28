@@ -196,7 +196,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: iParkColors.mainBackGroundcolor,
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(25),
                                 ),
                                 width: size.width * 0.9,
                                 padding: const EdgeInsets.symmetric(
@@ -206,14 +206,14 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Moje rezervácie',
+                                      'Pridať miesto na share',
                                       style: TextStyle(
                                         color: iParkColors.mainTextColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    Icon(Icons.contact_mail,
+                                    Icon(Icons.add_circle,
                                         size: 30,
                                         color: iParkColors.mainTextColor),
                                   ],
@@ -223,7 +223,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: iParkColors.mainBackGroundcolor,
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(25),
                                 ),
                                 width: size.width * 0.9,
                                 padding: const EdgeInsets.symmetric(
@@ -250,7 +250,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: iParkColors.mainBackGroundcolor,
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(25),
                                 ),
                                 width: size.width * 0.9,
                                 padding: const EdgeInsets.symmetric(
