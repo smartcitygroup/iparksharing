@@ -42,8 +42,9 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
         Lots obj = new Lots();
         obj.name = _lotsModel.data[i]["name"];
         obj.ID = _lotsModel.data[i]["ID"];
-        obj.lat = double.parse(_lotsModel.data[i]["lat"]);
-        obj.lon = double.parse(_lotsModel.data[i]["lon"]);
+        obj.lat = double.parse(_lotsModel.data[i]["lat"].toString());
+        obj.lon = double.parse(_lotsModel.data[i]["lon"].toString());
+        print(_lotsModel.data[i]["name"]);
         items.add(obj);
       }
       //allMarkers.clear();
