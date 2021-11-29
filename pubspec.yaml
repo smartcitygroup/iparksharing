@@ -24,13 +24,12 @@ dependencies:
   qr_flutter: ^4.0.0
   horizontal_calendar_widget: ^1.0.1
   email_validator: ^1.0.6
-  flutter_polyline_points: ^1.0.0
-  flutter_barcode_scanner: ^1.0.2
   webview_flutter: ^1.0.7
   barcode_flutter: ^1.1.2
   permission_handler: ^5.0.1+1
   android_intent: ^2.0.2
   curved_navigation_bar: ^0.3.7
+  http: ^0.13.4
 
 dependency_overrides:
   intl: ^0.17.0

@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ipark_sharing/api/lots.dart';
 import 'package:ipark_sharing/models/lots.dart';
 import 'package:ipark_sharing/screens/auth/login.dart';
+import 'package:ipark_sharing/screens/lots/pick_place.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
 import 'package:ipark_sharing/utils/custom_style.dart';
@@ -223,6 +224,16 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const SizedBox(height: 12),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PickPlace(),
+                                    ),
+                                  );
+                                },
+                                child:
                               Container(
                                 decoration: BoxDecoration(
                                   color: iParkColors.mainBackGroundcolor,
@@ -248,6 +259,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                         color: Colors.white),
                                   ],
                                 ),
+                              ),
                               ),
                               const SizedBox(height: 12),
                               InkWell(
