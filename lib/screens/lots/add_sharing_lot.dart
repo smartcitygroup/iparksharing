@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ipark_sharing/api/add_lots.dart';
+import 'package:ipark_sharing/screens/main/bottom_navigation_bar.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
 import 'package:ipark_sharing/utils/custom_style.dart';
@@ -92,7 +93,12 @@ class _AddSharingLotState extends State<AddSharingLot> {
                       _lotsAddModel = response;
                     });
                     if(_lotsAddModel.code == 200) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                       iPark.iParkSnackBar(context, "Úspešne pridané!", iParkColors.materialGreenA400);
+                      Navigator.of(context)
+                          .pushReplacement(MaterialPageRoute(builder: (context) => BottomNavigationBar1()));
                     } else {
                       iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
                     }
