@@ -4,6 +4,7 @@ import 'package:ipark_sharing/screens/main/bottom_navigation_bar.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
 import 'package:ipark_sharing/utils/custom_style.dart';
+import 'package:ipark_sharing/utils/img.dart';
 import 'package:ipark_sharing/utils/ipark.dart';
 import 'package:ipark_sharing/utils/user_preferences.dart';
 import 'package:ipark_sharing/widgets/textfield_widget.dart';
@@ -11,7 +12,6 @@ import 'package:ipark_sharing/widgets/textfield_widget_support.dart';
 import 'package:provider/provider.dart';
 
 class AddSharingLot extends StatefulWidget {
-
   final double lat;
   final double lon;
 
@@ -220,6 +220,24 @@ class _AddSharingLotState extends State<AddSharingLot> {
                     ),
                     SizedBox(
                       height: 10.0,
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Parkovisko voľne otvorené",
+                        style: CustomStyle.listStyle,
+                      ),
+                      leading: Container(
+                        width: 30,
+                        height: 30,
+                        alignment: Alignment.topCenter,
+                        child: Image.asset(Img.get('atributes/parking.png'),
+                            fit: BoxFit.cover),
+                      ),
+                      trailing: Switch.adaptive(
+                          value: true,
+                          onChanged: (value) async {
+                            iPark.iParkSnackBar(context, "Aktuálne sa dajú iba voľne otvorené parkoviska pridať!", iParkColors.materialYellowA400);
+                          }),
                     ),
                   ],
                 ),

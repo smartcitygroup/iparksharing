@@ -552,7 +552,6 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                           ),
                         ),
                         height20Space,
-
                       ],
                     ),
                   ),
