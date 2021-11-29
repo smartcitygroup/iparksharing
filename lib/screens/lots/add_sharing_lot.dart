@@ -23,6 +23,10 @@ class AddSharingLot extends StatefulWidget {
 
 class _AddSharingLotState extends State<AddSharingLot> {
   TextEditingController descriptionInfo = TextEditingController(text: "");
+  String nameController;
+  String phoneController;
+  String emailController;
+  String loreController;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +63,23 @@ class _AddSharingLotState extends State<AddSharingLot> {
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Material(
+        elevation: 20.0,
+        child: Container(
+          padding: EdgeInsets.fromLTRB(
+              fixPadding, fixPadding, fixPadding, fixPadding * 2),
+          color: iParkColors.mainBackGroundcolor,
+          height: 80.0,
+          width: 70.0,
+          child: iPark.iParkCustomButton(
+              context: context,
+              color: iParkColors.mainTextColor,
+              text: "PRIDAŤ",
+              onClicked: () async {
+
+              }),
         ),
       ),
       body: Container(
@@ -167,60 +188,6 @@ class _AddSharingLotState extends State<AddSharingLot> {
                     ),
                     SizedBox(
                       height: 10.0,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(fixPadding * 2.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Kontaktné údaje",
-                      style: TextStyle(
-                          color: Theme.of(context).secondaryHeaderColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    heightSpace,
-                    Text(
-                      "BLABLABlABLA",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Theme
-                            .of(context)
-                            .secondaryHeaderColor,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(fixPadding * 2.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Kontaktné údaje",
-                      style: TextStyle(
-                          color: Theme.of(context).secondaryHeaderColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    heightSpace,
-                    Text(
-                      "BLABLABlABLA",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Theme
-                            .of(context)
-                            .secondaryHeaderColor,
-                      ),
-                      textAlign: TextAlign.left,
                     ),
                   ],
                 ),
