@@ -95,7 +95,13 @@ class _PickPlaceState extends State<PickPlace> {
               context: context,
               color: iParkColors.mainTextColor,
               text: "ĎALEJ",
-              onClicked: () async {}),
+              onClicked: () async {
+                if(allMarkers.isEmpty) {
+                  iPark.iParkSnackBar(context, "Prosím, kliknite na mape kde sa nachádza vaše miesto!", iParkColors.materialRedA400);
+                } else {
+
+                }
+              }),
         ),
       ),
       body: Stack(children: <Widget>[
