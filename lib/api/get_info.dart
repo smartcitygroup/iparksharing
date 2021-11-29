@@ -13,7 +13,6 @@ class GetInfoModel {
   int last_activity, tickets_count, vehicles_count, transactions_count;
   bool preference_dark_theme;
 
-
   GetInfoModel(
       {this.code,
       this.error_message,

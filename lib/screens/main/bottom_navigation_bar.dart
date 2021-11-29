@@ -142,7 +142,8 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
               children: [
                 Positioned(
                   top: 40,
-                  right: 80,
+                  right: 40,
+                  left: 40,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +173,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                         child: Text(
                           UserPreferences.getSaveUserEmail(),
                           style: Theme.of(context).textTheme.subtitle1.copyWith(
-                                color: iParkColors.mainBackGroundcolor,
+                                color: Colors.white,
                               ),
                         ),
                       ),
@@ -198,9 +199,6 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       ),
                     ];
                   },
-/*--------------------------------------------------------------------------------------------*/
-/*------------------------------------------  Body  ------------------------------------------*/
-/*--------------------------------------------------------------------------------------------*/
                   body: SafeArea(
                     child: Container(
                       padding: const EdgeInsets.only(top: 8),
@@ -238,14 +236,14 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                     Text(
                                       'Pridať miesto na share',
                                       style: TextStyle(
-                                        color: iParkColors.mainTextColor,
+                                        color: Colors.white,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Icon(Icons.add_circle,
                                         size: 30,
-                                        color: iParkColors.mainTextColor),
+                                        color: Colors.white),
                                   ],
                                 ),
                               ),
@@ -265,14 +263,14 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                     Text(
                                       'Moje platby',
                                       style: TextStyle(
-                                        color: iParkColors.mainTextColor,
+                                        color: Colors.white,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Icon(Icons.money_rounded,
                                         size: 30,
-                                        color: iParkColors.mainTextColor),
+                                        color: Colors.white),
                                   ],
                                 ),
                               ),
@@ -292,14 +290,14 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                     Text(
                                       'Odhlásiť sa',
                                       style: TextStyle(
-                                        color: iParkColors.mainTextColor,
+                                        color: Colors.white,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Icon(Icons.logout_outlined,
                                         size: 30,
-                                        color: iParkColors.mainTextColor),
+                                        color: Colors.white),
                                   ],
                                 ),
                               ),
@@ -320,7 +318,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
                       padding: EdgeInsets.only(
-                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.2 :  MediaQuery.of(context).size.height * 0.25,
+                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.16 :  MediaQuery.of(context).size.height * 0.25,
                           left: 10),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(49.05722903231597, 20.303223278767245),
@@ -347,7 +345,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       duration: const Duration(milliseconds: 400),
                       padding: MediaQuery.of(context).viewInsets,
                       height: (!isExpanded)
-                          ? MediaQuery.of(context).size.height * 0.2
+                          ? MediaQuery.of(context).size.height * 0.16
                           : MediaQuery.of(context).size.height * 0.25,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
@@ -414,7 +412,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                   .secondaryHeaderColor),
             ),
           ),
-          height5Space,
+          height20Space,
           Padding(
             padding: const EdgeInsets.only(
                 left: Dimensions.marginSize, right: Dimensions.marginSize),
@@ -474,7 +472,6 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                     borderRadius:
                         BorderRadius.circular(CustomStyle.cornerPadding),
                     child: ListTile(
-                      /*----------------------------  Leading  ----------------------------*/
                       leading: CircleAvatar(
                         child: Container(
                           width: 30,
@@ -488,7 +485,6 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                         ),
                         backgroundColor: iParkColors.mainTextColor,
                       ),
-                      /*----------------------------  Title  ----------------------------*/
                       title: Text(
                         "Nemáte voľné miesto?",
                         style:
