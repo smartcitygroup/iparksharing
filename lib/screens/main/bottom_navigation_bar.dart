@@ -74,7 +74,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
               onTap: () {
                 pressedLot = items.indexOf(element);
                 setState(() {
-                  isExpanded = isExpanded == true ? false : true;
+                  isExpanded = true;
                 });
               },
               position: LatLng(element.lat, element.lon)));
@@ -357,7 +357,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                   ),
                 ])
               : Center(
-                  child: Text('BOH XD'),
+                  child: Text('Tu možno dačo bude keď dostanem lóve.'),
                 ),
     );
   }
