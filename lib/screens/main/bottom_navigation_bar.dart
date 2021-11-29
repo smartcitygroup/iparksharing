@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ipark_sharing/api/lots.dart';
 import 'package:ipark_sharing/models/lots.dart';
+import 'package:ipark_sharing/screens/auth/login.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
 import 'package:ipark_sharing/utils/custom_style.dart';
@@ -152,7 +153,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                         backgroundColor: iParkColors.mainTextColor,
                         backgroundImage: NetworkImage(
                             "https://scontent.fksc2-1.fna.fbcdn.net/v/t39.30808-6/240474532_4702745656416132_895685324867087184_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=eE9FiMm-CSEAX_U0RFA&_nc_ht=scontent.fksc2-1.fna&oh=6c6e0fc24f1719e59e2d213c61771a7e&oe=61A841C5"),
-                        maxRadius: size.width * 0.15,
+                        maxRadius: size.width * 0.25,
                       ),
                       const SizedBox(height: 10),
                       Padding(
@@ -164,7 +165,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 26,
+                              fontSize: 30,
                               fontWeight: FontWeight.w900),
                         ),
                       ),
@@ -172,9 +173,10 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                         padding: EdgeInsets.only(top: 2),
                         child: Text(
                           UserPreferences.getSaveUserEmail(),
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(
-                                color: Colors.white,
-                              ),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900),
                         ),
                       ),
                     ],
@@ -188,10 +190,10 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                         backgroundColor: Colors.transparent,
                         automaticallyImplyLeading: false,
                         collapsedHeight: kToolbarHeight,
-                        expandedHeight: size.height * 0.26,
+                        expandedHeight: size.height * 0.46,
                         actions: [
                           IconButton(
-                            color: iParkColors.mainBackGroundcolor,
+                            color: Colors.white,
                             icon: const Icon(Icons.more_vert_outlined),
                             onPressed: () {},
                           ),
@@ -201,7 +203,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                   },
                   body: SafeArea(
                     child: Container(
-                      padding: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.only(top: 20),
                       decoration: BoxDecoration(
                         color: iParkColors.mainBackGroundcolor,
                         borderRadius: BorderRadius.only(
@@ -248,33 +250,10 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                 ),
                               ),
                               const SizedBox(height: 12),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: iParkColors.mainBackGroundcolor,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                width: size.width * 0.9,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 30),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Moje platby',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Icon(Icons.money_rounded,
-                                        size: 30,
-                                        color: Colors.white),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 12),
+                              InkWell(
+                                onTap: () => showDialog(
+                                  context: context, builder: (_) => SignOutDialog()),
+                                child:
                               Container(
                                 decoration: BoxDecoration(
                                   color: iParkColors.mainBackGroundcolor,
@@ -300,6 +279,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                         color: Colors.white),
                                   ],
                                 ),
+                              ),
                               ),
                             ],
                           ),
@@ -501,6 +481,106 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
             height: Dimensions.heightSize,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SignOutDialog extends StatefulWidget {
+  SignOutDialog({Key key}) : super(key: key);
+
+  @override
+  SignOutDialogState createState() => new SignOutDialogState();
+}
+
+class SignOutDialogState extends State<SignOutDialog> {
+  @override
+  Widget build(BuildContext context) {
+
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: 160,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(CustomStyle.cornerPadding),
+          ),
+          color: iParkColors.mainTextColor,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Wrap(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(20),
+                width: double.infinity,
+                color: iParkColors.mainBackGroundcolor,
+                child: Column(
+                  children: <Widget>[
+                    Container(height: 10),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      alignment: Alignment.topCenter,
+                      child: Image.asset(Img.get('atributes/exit.png'),
+                          fit: BoxFit.cover),
+                    ),
+                    Text(
+                      "Prajete si odhlásiť sa?",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Container(height: 10),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      child: Text(
+                        "Zrušiť".toUpperCase(),
+                        style: TextStyle(
+                            color: iParkColors.mainBackGroundcolor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            iParkColors.mainBackGroundcolor),
+                      ),
+                      child: Text("Odhlásiť sa".toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800),
+                      ),
+                      onPressed: () {
+                        UserPreferences.setUserToken("");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeView(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
