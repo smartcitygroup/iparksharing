@@ -460,7 +460,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                           child: Image.asset(
                             Img.get('atributes/parked-car.png'),
                             fit: BoxFit.cover,
-                            color: iParkColors.mainBackGroundcolor,
+                            color: Colors.white,
                           ),
                         ),
                         backgroundColor: iParkColors.mainTextColor,
@@ -468,7 +468,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       title: Text(
                         "Nemáte voľné miesto?",
                         style:
-                            iPark.subtitleTextStyle(iParkColors.mainTextColor),
+                            iPark.subtitleTextStyle(Colors.white),
                       ),
                     ),
                   ),
