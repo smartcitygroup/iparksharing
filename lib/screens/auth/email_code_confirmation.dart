@@ -124,13 +124,12 @@ class _EmailConfirmationState extends State<EmailConfirmation>
                     Text(
                       "Verifikácia",
                       style: iPark.appBarTextStyle(
-                          iParkColors.mainBackGroundcolor),
+                          Colors.white),
                     ),
                   ],
                 ),
                 leading: IconButton(
-                  icon: iPark.iParkArrowBackButton(
-                      iParkColors.mainBackGroundcolor),
+                  icon: iPark.iParkArrowBackButton(Colors.white),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -195,7 +194,7 @@ class _EmailConfirmationState extends State<EmailConfirmation>
               ActionChip(
                 label: Text((isPressed)
                     ? "Generovanie nového kódu..".toUpperCase()
-                    : "Odoslať nový kód".toUpperCase(), style: TextStyle(color: iParkColors.mainBackGroundcolor, fontWeight: FontWeight.w900),),
+                    : "Odoslať nový kód".toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900),),
                 padding: const EdgeInsets.all(5.0),
                 backgroundColor: iParkColors.mainTextColor,
                 labelPadding:
@@ -203,7 +202,7 @@ class _EmailConfirmationState extends State<EmailConfirmation>
                 avatar: (isPressed)
                     ? CircularProgressIndicator(
                   valueColor:
-                  AlwaysStoppedAnimation<Color>(Color(0xff4A64FE)),
+                  AlwaysStoppedAnimation<Color>(Colors.pink),
                   backgroundColor: Colors.white,
                   strokeWidth: 2,
                 )

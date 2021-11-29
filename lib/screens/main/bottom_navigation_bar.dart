@@ -162,7 +162,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                               UserPreferences.getSaveUserSecondName(),
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: iParkColors.mainBackGroundcolor,
+                              color: Colors.white,
                               fontSize: 26,
                               fontWeight: FontWeight.w900),
                         ),

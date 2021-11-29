@@ -13,15 +13,14 @@ class CustomStyle {
   static var materialButton = TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w900,
-      color: iParkColors.mainBackGroundcolor);
+      color: Colors.white);
 
   static var textStyle = TextStyle(
       fontSize: Dimensions.defaultTextSize,);
 
   static var hintTextStyle = TextStyle(
       color: Colors.grey.withOpacity(0.5),
-      fontSize: Dimensions.defaultTextSize,
-      fontFamily: 'Poppins-SemiBold');
+      fontSize: Dimensions.defaultTextSize,);
 
 
   static var listStyle = TextStyle(
