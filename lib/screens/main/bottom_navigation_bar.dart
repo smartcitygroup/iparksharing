@@ -522,7 +522,37 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                 fit: BoxFit.cover),
                           ),
                         ),
+                        ListTile(
+                          title: Text(
+                            _getLotsInfoModel.lore,
+                            style: CustomStyle.listStyle,
+                          ),
+                          leading: Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(Img.get('atributes/info_new.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: Dimensions.marginSize, right: Dimensions.marginSize),
+                          child:
+                          Container(
+                            height: 50,
+                            color: Colors.transparent,
+                            child: iPark.iParkCustomButton(
+                                color: iParkColors.mainTextColor,
+                                context: context,
+                                text: "rezervovať".toUpperCase(),
+                                onClicked: () async {
+
+                                }),
+                          ),
+                        ),
                         height20Space,
+
                       ],
                     ),
                   ),
