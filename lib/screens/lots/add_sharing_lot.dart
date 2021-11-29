@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ipark_sharing/api/add_lots.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
 import 'package:ipark_sharing/utils/custom_style.dart';
 import 'package:ipark_sharing/utils/ipark.dart';
+import 'package:ipark_sharing/utils/user_preferences.dart';
 import 'package:ipark_sharing/widgets/textfield_widget.dart';
 import 'package:ipark_sharing/widgets/textfield_widget_support.dart';
 import 'package:provider/provider.dart';
@@ -22,11 +24,12 @@ class AddSharingLot extends StatefulWidget {
 }
 
 class _AddSharingLotState extends State<AddSharingLot> {
+  LotsAddModel _lotsAddModel;
   TextEditingController descriptionInfo = TextEditingController(text: "");
-  String nameController;
-  String phoneController;
-  String emailController;
-  String loreController;
+  String nameController = "";
+  String phoneController = "";
+  String emailController = "";
+  String loreController = "";
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,30 @@ class _AddSharingLotState extends State<AddSharingLot> {
               color: iParkColors.mainTextColor,
               text: "PRIDAŤ",
               onClicked: () async {
-
+                if(nameController.toString().isNotEmpty && emailController.toString().isNotEmpty &&
+                phoneController.toString().isNotEmpty && loreController.toString().isNotEmpty) {
+                  iPark.iParkLoadingDialog(context);
+                  try {
+                    final LotsAddModel response =
+                    await iPark.ApiAddLots(nameController, widget.lat, widget.lon, UserPreferences.getSaveUserID(), UserPreferences.getUserToken(),
+                    " ", 1, phoneController, loreController, emailController);
+                    setState(() {
+                      _lotsAddModel = response;
+                    });
+                    if(_lotsAddModel.code == 200) {
+                      iPark.iParkSnackBar(context, "Úspešne pridané!", iParkColors.materialGreenA400);
+                    } else {
+                      iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                    }
+                    Navigator.pop(context);
+                  } catch(e) {
+                    Navigator.pop(context);
+                    iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                    print(e);
+                  }
+                } else {
+                  iPark.iParkSnackBar(context, "Prosím vyplnte všetky polia!", iParkColors.materialRedA400);
+                }
               }),
         ),
       ),
@@ -113,7 +139,7 @@ class _AddSharingLotState extends State<AddSharingLot> {
                     imgAtributes: "atributes/parking.png",
                     imgSuffix: null,
                     onChanged: (value) {
-                      //emailController = value;
+                      nameController = value;
                     },
                   ),
                   SizedBox(
@@ -136,7 +162,7 @@ class _AddSharingLotState extends State<AddSharingLot> {
                       imgAtributes: "atributes/call.png",
                       imgSuffix: null,
                       onChanged: (value) {
-                        //emailController = value;
+                        phoneController = value;
                       },
                     ),
                     SizedBox(
@@ -159,7 +185,7 @@ class _AddSharingLotState extends State<AddSharingLot> {
                       imgAtributes: "atributes/open-email.png",
                       imgSuffix: null,
                       onChanged: (value) {
-                        //emailController = value;
+                        emailController = value;
                       },
                     ),
                     SizedBox(
@@ -182,7 +208,7 @@ class _AddSharingLotState extends State<AddSharingLot> {
                       imgAtributes: "atributes/info_new.png",
                       imgSuffix: null,
                       onChanged: (value) {
-
+                          loreController = value;
                       },
                       controller: descriptionInfo,
                     ),
