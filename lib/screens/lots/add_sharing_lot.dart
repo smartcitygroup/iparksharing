@@ -95,7 +95,6 @@ class _AddSharingLotState extends State<AddSharingLot> {
                     if(_lotsAddModel.code == 200) {
                       Navigator.pop(context);
                       Navigator.pop(context);
-                      Navigator.pop(context);
                       iPark.iParkSnackBar(context, "Úspešne pridané!", iParkColors.materialGreenA400);
                       Navigator.of(context)
                           .pushReplacement(MaterialPageRoute(builder: (context) => BottomNavigationBar1()));
