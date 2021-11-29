@@ -4,8 +4,10 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ipark_sharing/api/get_lots_info.dart';
 import 'package:ipark_sharing/api/lots.dart';
 import 'package:ipark_sharing/models/lots.dart';
+import 'package:ipark_sharing/models/lots_item.dart';
 import 'package:ipark_sharing/screens/auth/login.dart';
 import 'package:ipark_sharing/screens/lots/pick_place.dart';
 import 'package:ipark_sharing/utils/colors.dart';
@@ -26,9 +28,11 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
   GoogleMapController _controller;
   bool isExpanded = false;
   LotsModel _lotsModel;
+  GetLotsInfoModel _getLotsInfoModel;
   List<Lots> items = [];
   List<Marker> allMarkers = [];
   int pressedLot = 0;
+  List<LotsItem> itemsLot = [];
 
   @override
   void initState() {
@@ -414,9 +418,31 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
             color: Colors.transparent,
             child: iPark.iParkSignButton(
                 context: context,
-                text: "rezervovať".toUpperCase(),
+                text: "ZOBRAZIŤ INFO".toUpperCase(),
                 onClicked: () async {
                   iPark.iParkLoadingDialog(context);
+                  itemsLot.clear();
+                  try {
+                    final GetLotsInfoModel lots = await iPark.ApiLotsInfo(items[pressedLot].ID);
+                    setState(() {
+                      _getLotsInfoModel = lots;
+                    });
+                    if(_getLotsInfoModel.code == 200) {
+                      LotsItem obj = new LotsItem();
+                      obj.ID = _getLotsInfoModel.data[0]["ID"];
+                      obj.contact_phone = _getLotsInfoModel.data[0]["contact_phone"];
+                      obj.lore = _getLotsInfoModel.data[0]["lore"];
+                      obj.contact_email = _getLotsInfoModel.data[0]["contact_email"];
+                      itemsLot.add(obj);
+                    } else {
+                      iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                    }
+                    Navigator.pop(context);
+                  } catch(e) {
+                    print(e);
+                    Navigator.pop(context);
+                    iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                  }
                 }),
           ),
           ),
@@ -495,6 +521,115 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
         ],
       ),
     );
+  }
+
+  void reserveInfoBottomSheet(context, height, index, themeProvider) {
+
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return Wrap(
+                children: <Widget>[
+                  Container(
+                    // height: height - 100.0,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(16)),
+                      color: iParkColors.mainBackGroundcolor,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(fixPadding),
+                          alignment: Alignment.center,
+                          child: Container(
+                              width: 50,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(CustomStyle.cornerPadding)),
+                              )),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(fixPadding),
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            items[index].name,
+                            style: TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            itemsLot[0].contact_phone,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Theme.of(context).secondaryHeaderColor,
+                            ),
+                          ),
+                          leading: Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(
+                                Img.get('atributes/sports-car.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            itemsLot[0].contact_phone,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Theme.of(context).secondaryHeaderColor,
+                            ),
+                          ),
+                          leading: Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(
+                                Img.get('atributes/sports-car.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            itemsLot[0].contact_phone,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Theme.of(context).secondaryHeaderColor,
+                            ),
+                          ),
+                          leading: Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(
+                                Img.get('atributes/sports-car.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        height20Space,
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        });
   }
 }
 
