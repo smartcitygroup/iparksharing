@@ -117,6 +117,8 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: iParkColors.mainTextColor,
       bottomNavigationBar: CurvedNavigationBar(
@@ -314,7 +316,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
                       padding: EdgeInsets.only(
-                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.16 :  MediaQuery.of(context).size.height * 0.25,
+                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.18 :  MediaQuery.of(context).size.height * 0.25,
                           left: 10),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(49.05722903231597, 20.303223278767245),
@@ -341,7 +343,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       duration: const Duration(milliseconds: 400),
                       padding: MediaQuery.of(context).viewInsets,
                       height: (!isExpanded)
-                          ? MediaQuery.of(context).size.height * 0.16
+                          ? MediaQuery.of(context).size.height * 0.18
                           : MediaQuery.of(context).size.height * 0.25,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
@@ -381,6 +383,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
   }
 
   lowWidget(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.only(top: Dimensions.heightSize),
       child: Column(
@@ -429,11 +432,12 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                     });
                     if(_getLotsInfoModel.code == 200) {
                       LotsItem obj = new LotsItem();
-                      obj.ID = _getLotsInfoModel.data[0]["ID"];
-                      obj.contact_phone = _getLotsInfoModel.data[0]["contact_phone"];
-                      obj.lore = _getLotsInfoModel.data[0]["lore"];
-                      obj.contact_email = _getLotsInfoModel.data[0]["contact_email"];
+                      obj.ID = _getLotsInfoModel.ID;
+                      obj.contact_phone = _getLotsInfoModel.contact_phone;
+                      obj.lore = _getLotsInfoModel.lore;
+                      obj.contact_email = _getLotsInfoModel.contact_email;
                       itemsLot.add(obj);
+                      reserveInfoBottomSheet(context, height, pressedLot);
                     } else {
                       iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
                     }
@@ -523,8 +527,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
     );
   }
 
-  void reserveInfoBottomSheet(context, height, index, themeProvider) {
-
+  void reserveInfoBottomSheet(context, height, index) {
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -561,7 +564,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                           padding: EdgeInsets.all(fixPadding),
                           alignment: Alignment.topCenter,
                           child: Text(
-                            items[index].name,
+                            _getLotsInfoModel.name,
                             style: TextStyle(
                               color: Theme.of(context).secondaryHeaderColor,
                               fontSize: 20,
@@ -572,41 +575,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                         ),
                         ListTile(
                           title: Text(
-                            itemsLot[0].contact_phone,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
-                          ),
-                          leading: Container(
-                            width: 30,
-                            height: 30,
-                            alignment: Alignment.topCenter,
-                            child: Image.asset(
-                                Img.get('atributes/sports-car.png'),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            itemsLot[0].contact_phone,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
-                          ),
-                          leading: Container(
-                            width: 30,
-                            height: 30,
-                            alignment: Alignment.topCenter,
-                            child: Image.asset(
-                                Img.get('atributes/sports-car.png'),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            itemsLot[0].contact_phone,
+                            _getLotsInfoModel.contact_phone,
                             style: TextStyle(
                               fontSize: 12.0,
                               color: Theme.of(context).secondaryHeaderColor,

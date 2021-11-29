@@ -86,6 +86,7 @@ class _AddSharingLotState extends State<AddSharingLot> {
                 phoneController.toString().isNotEmpty && loreController.toString().isNotEmpty) {
                   iPark.iParkLoadingDialog(context);
                   try {
+                    // TODO: Je parkovisko voľne otvorené? is_open....
                     final LotsAddModel response =
                     await iPark.ApiAddLots(nameController, widget.lat, widget.lon, UserPreferences.getSaveUserID(), UserPreferences.getUserToken(),
                     " ", 1, phoneController, loreController, emailController);

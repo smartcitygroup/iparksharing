@@ -117,7 +117,7 @@ class _PickPlaceState extends State<PickPlace> {
           width: MediaQuery.of(context).size.width,
           child: GoogleMap(
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.16, left: 10),
+                bottom: MediaQuery.of(context).size.height * 0.18, left: 10),
             initialCameraPosition: CameraPosition(
                 target: LatLng(49.05722903231597, 20.303223278767245),
                 zoom: 14.0),
@@ -150,7 +150,7 @@ class _PickPlaceState extends State<PickPlace> {
             curve: Curves.easeInOut,
             duration: const Duration(milliseconds: 400),
             padding: MediaQuery.of(context).viewInsets,
-            height: MediaQuery.of(context).size.height * 0.16,
+            height: MediaQuery.of(context).size.height * 0.18,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               borderRadius:
