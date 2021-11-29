@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ipark_sharing/screens/lots/add_sharing_lot.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
 import 'package:ipark_sharing/utils/custom_style.dart';
@@ -99,7 +100,12 @@ class _PickPlaceState extends State<PickPlace> {
                 if(allMarkers.isEmpty) {
                   iPark.iParkSnackBar(context, "Prosím, kliknite na mape kde sa nachádza vaše miesto!", iParkColors.materialRedA400);
                 } else {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddSharingLot(lat: allMarkers.single.position.latitude, lon: allMarkers.single.position.longitude),
+                    ),
+                  );
                 }
               }),
         ),
