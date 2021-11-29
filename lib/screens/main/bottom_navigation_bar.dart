@@ -406,9 +406,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
             child: Text(
               items[pressedLot].name.toUpperCase(),
               maxLines: 1,
-              style: iPark.headerInfoTextStyle(Theme
-                  .of(context)
-                  .secondaryHeaderColor),
+              style: iPark.headerInfoTextStyle(Colors.white),
             ),
           ),
           height20Space,
@@ -437,11 +435,13 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       obj.lore = _getLotsInfoModel.lore;
                       obj.contact_email = _getLotsInfoModel.contact_email;
                       itemsLot.add(obj);
-                      reserveInfoBottomSheet(context, height, pressedLot);
+                      Navigator.pop(context);
+                      showDialogOfInfo(context);
                     } else {
+                      Navigator.pop(context);
                       iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
                     }
-                    Navigator.pop(context);
+                    //Navigator.pop(context);
                   } catch(e) {
                     print(e);
                     Navigator.pop(context);
@@ -453,6 +453,84 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
         ],
       ),
     );
+  }
+
+  showDialogOfInfo(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return Wrap(
+                children: <Widget>[
+                  Container(
+                    // height: height - 100.0,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(16)),
+                      color: iParkColors.mainBackGroundcolor,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(fixPadding),
+                          alignment: Alignment.center,
+                          child: Container(
+                              width: 50,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(5)),
+                              )),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(fixPadding),
+                          alignment: Alignment.center,
+                          child: Text(
+                            items[pressedLot].name.toUpperCase(),
+                            style: iPark.headerInfoTextStyle(Colors.white),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            _getLotsInfoModel.contact_email,
+                            style: CustomStyle.listStyle,
+                          ),
+                          leading: Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(Img.get('atributes/open-email.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            _getLotsInfoModel.contact_phone,
+                            style: CustomStyle.listStyle,
+                          ),
+                          leading: Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(Img.get('atributes/call.png'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        height20Space,
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        });
   }
 
   bodyWidget(BuildContext context) {
@@ -526,80 +604,6 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
       ),
     );
   }
-
-  void reserveInfoBottomSheet(context, height, index) {
-    showModalBottomSheet(
-        context: context,
-        backgroundColor: Colors.transparent,
-        isScrollControlled: true,
-        builder: (BuildContext bc) {
-          return StatefulBuilder(
-            builder: (context, setState) {
-              return Wrap(
-                children: <Widget>[
-                  Container(
-                    // height: height - 100.0,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(16)),
-                      color: iParkColors.mainBackGroundcolor,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(fixPadding),
-                          alignment: Alignment.center,
-                          child: Container(
-                              width: 50,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(CustomStyle.cornerPadding)),
-                              )),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(fixPadding),
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            _getLotsInfoModel.name,
-                            style: TextStyle(
-                              color: Theme.of(context).secondaryHeaderColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            _getLotsInfoModel.contact_phone,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
-                          ),
-                          leading: Container(
-                            width: 30,
-                            height: 30,
-                            alignment: Alignment.topCenter,
-                            child: Image.asset(
-                                Img.get('atributes/sports-car.png'),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        height20Space,
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          );
-        });
-  }
 }
 
 class SignOutDialog extends StatefulWidget {
@@ -612,7 +616,6 @@ class SignOutDialog extends StatefulWidget {
 class SignOutDialogState extends State<SignOutDialog> {
   @override
   Widget build(BuildContext context) {
-
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
