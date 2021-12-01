@@ -104,7 +104,21 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
           child: SingleChildScrollView(
             child: Column(children: <Widget>[
               Container(height: 20),
-              height5Space,
+              Container(
+                padding: EdgeInsets.only(left: 13),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Platnosť rezervácie od:",
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              heightSpace,
               Padding(
                 padding: EdgeInsets.only(left: 13, right: 13),
                 child: MaterialButton(
@@ -139,6 +153,21 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                 ),
               ),
               height20Space,
+              Container(
+                padding: EdgeInsets.only(left: 13),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Platnosť rezervácie do:",
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              heightSpace,
               Padding(
                 padding: EdgeInsets.only(left: 13, right: 13),
                 child: MaterialButton(
