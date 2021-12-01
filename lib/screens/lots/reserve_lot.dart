@@ -203,6 +203,41 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(left: 13, right: 13),
+                child: MaterialButton(
+                  height: 50,
+                  onPressed: () {
+                    _selectEntranceTime(context);
+                  },
+                  color: iParkColors.mainTextColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          alignment: Alignment.topCenter,
+                          child: Image.asset(
+                              Img.get(
+                                  'atributes/wall-clock.png'),
+                              fit: BoxFit.cover),
+                        ),
+                        backgroundColor: iParkColors.mainBackGroundcolor,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(exitTime,
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               height20Space,
               Container(
                 padding: EdgeInsets.only(left: 13),
@@ -248,6 +283,42 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                       ),
                       Text(fromDate, style: TextStyle(
                           color: Colors.white, fontSize: 16)),
+                    ],
+                  ),
+                ),
+              ),
+              heightSpace,
+              Padding(
+                padding: EdgeInsets.only(left: 13, right: 13),
+                child: MaterialButton(
+                  height: 50,
+                  onPressed: () {
+                    _selectExitTime(context);
+                  },
+                  color: iParkColors.mainTextColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          alignment: Alignment.topCenter,
+                          child: Image.asset(
+                              Img.get(
+                                  'atributes/wall-clock.png'),
+                              fit: BoxFit.cover),
+                        ),
+                        backgroundColor: iParkColors.mainBackGroundcolor,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(exitTime,
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
                     ],
                   ),
                 ),
