@@ -331,6 +331,30 @@ class _AddReserveSharingLotState extends State<AddReserveSharingLot> {
                   ],
                 ),
               ),
+              height5Space,
+              Padding(padding: EdgeInsets.only(right: 13, left: 16),
+                child:
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextFieldWidget(
+                      hintText: 'Čas na odchod v min',
+                      obscureText: false,
+                      color: iParkColors.mainTextColor,
+                      enabled: true,
+                      keyBoard: TextInputType.phone,
+                      imgAtributes: "atributes/wall-clock.png",
+                      imgSuffix: null,
+                      onChanged: (value) {
+                        priceController = value;
+                      },
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                ),
+              ),
             ]),
           ),
         ),
