@@ -9,6 +9,7 @@ import 'package:ipark_sharing/api/lots.dart';
 import 'package:ipark_sharing/models/lots.dart';
 import 'package:ipark_sharing/models/lots_item.dart';
 import 'package:ipark_sharing/screens/auth/login.dart';
+import 'package:ipark_sharing/screens/lots/add_slot_reserve.dart';
 import 'package:ipark_sharing/screens/lots/pick_place.dart';
 import 'package:ipark_sharing/screens/lots/reserve_lot.dart';
 import 'package:ipark_sharing/utils/colors.dart';
@@ -427,32 +428,12 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                   context: context,
                   text: "NASTAVIŤ REZERVÁCIE".toUpperCase(),
                   onClicked: () async {
-                    iPark.iParkLoadingDialog(context);
-                    itemsLot.clear();
-                    try {
-                      final GetLotsInfoModel lots = await iPark.ApiLotsInfo(items[pressedLot].ID);
-                      setState(() {
-                        _getLotsInfoModel = lots;
-                      });
-                      if(_getLotsInfoModel.code == 200) {
-                        LotsItem obj = new LotsItem();
-                        obj.ID = _getLotsInfoModel.ID;
-                        obj.contact_phone = _getLotsInfoModel.contact_phone;
-                        obj.lore = _getLotsInfoModel.lore;
-                        obj.contact_email = _getLotsInfoModel.contact_email;
-                        itemsLot.add(obj);
-                        Navigator.pop(context);
-                        showDialogOfInfo(context);
-                      } else {
-                        Navigator.pop(context);
-                        iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
-                      }
-                      //Navigator.pop(context);
-                    } catch(e) {
-                      print(e);
-                      Navigator.pop(context);
-                      iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddReserveSharingLot(ID: items[pressedLot].ID),
+                      ),
+                    );
                   }),
             ),
           ),
