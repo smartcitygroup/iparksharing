@@ -37,8 +37,12 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
   @override
   void initState() {
     super.initState();
-    currentIndex = 0;
-    getSharingLots();
+    setState(() {
+      currentIndex = 1;
+    });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getSharingLots();
+    });
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
