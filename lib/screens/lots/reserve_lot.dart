@@ -33,6 +33,12 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
   Future<DateTime> selectedDateFrom;
   Future<DateTime> selectedDateTo;
 
+  TimeOfDay selectedEntranceTime = TimeOfDay.now();
+  String entranceTime = '00:00';
+
+  TimeOfDay selectedExitTime = TimeOfDay.now();
+  String exitTime = '01:00';
+
   String ecvController = "";
   double toDateNum;
   double fromDateNum;
@@ -323,6 +329,56 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
     }, onError: (error) {
       print(error);
     });
+  }
+
+  Future<void> _selectEntranceTime(BuildContext context) async {
+    final TimeOfDay pickedTime = await showTimePicker(
+        context: context,
+        initialTime: selectedEntranceTime,
+        builder: (BuildContext context, Widget child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+            child: child,
+          );
+        });
+
+    if (pickedTime != null && pickedTime != selectedEntranceTime) {
+      setState(() {
+        selectedEntranceTime = pickedTime;
+        entranceTime = selectedEntranceTime
+            .toString()
+            .split('TimeOfDay(')[1]
+            .split(')')[0];
+        print('2 : ' + entranceTime);
+      });
+      print(selectedEntranceTime.periodOffset);
+      var finalTime = selectedEntranceTime.hour * 3600 + selectedEntranceTime.minute * 60;
+      //saveMainPriceList("&open_from=" + finalTime.toString());
+    }
+  }
+
+  Future<void> _selectExitTime(BuildContext context) async {
+    final TimeOfDay pickedTime = await showTimePicker(
+        context: context,
+        initialTime: selectedExitTime,
+        builder: (BuildContext context, Widget child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+            child: child,
+          );
+        });
+
+    if (pickedTime != null && pickedTime != selectedExitTime) {
+      setState(() {
+        selectedExitTime = pickedTime;
+
+        exitTime =
+        selectedExitTime.toString().split('TimeOfDay(')[1].split(')')[0];
+        print('2 : ' + exitTime);
+      });
+      var finalTime = selectedExitTime.hour * 3600 + selectedExitTime.minute * 60;
+      //saveMainPriceList("&open_to=" + finalTime.toString());
+    }
   }
 }
 
