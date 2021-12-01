@@ -34,8 +34,8 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
   Future<DateTime> selectedDateTo;
 
   String ecvController = "";
-  String toDateNum = "";
-  String fromDateNum = "";
+  double toDateNum;
+  double fromDateNum;
 
   @override
   Widget build(BuildContext context) {
@@ -292,7 +292,7 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
       setState(() {
         if (value == null) return;
         toDate = Tools.getFormattedDateSimple(value.millisecondsSinceEpoch);
-        toDateNum = (value.millisecondsSinceEpoch / 1000).toString();
+        toDateNum = (value.millisecondsSinceEpoch / 1000);
       });
     }, onError: (error) {
       print(error);
@@ -316,7 +316,7 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
       setState(() {
         if (value == null) return;
         fromDate = Tools.getFormattedDateSimple(value.millisecondsSinceEpoch);
-        fromDateNum = (value.millisecondsSinceEpoch / 1000).toString();
+        fromDateNum = (value.millisecondsSinceEpoch / 1000);
       });
     }, onError: (error) {
       print(error);
