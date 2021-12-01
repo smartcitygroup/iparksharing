@@ -10,6 +10,7 @@ import 'package:ipark_sharing/models/lots.dart';
 import 'package:ipark_sharing/models/lots_item.dart';
 import 'package:ipark_sharing/screens/auth/login.dart';
 import 'package:ipark_sharing/screens/lots/pick_place.dart';
+import 'package:ipark_sharing/screens/lots/reserve_lot.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
 import 'package:ipark_sharing/utils/custom_style.dart';
@@ -552,7 +553,12 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                                 context: context,
                                 text: "rezervovať".toUpperCase(),
                                 onClicked: () async {
-
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ReserveSharingLot(ID: items[pressedLot].ID),
+                                    ),
+                                  );
                                 }),
                           ),
                         ),
@@ -680,7 +686,9 @@ class SignOutDialogState extends State<SignOutDialog> {
                       "Prajete si odhlásiť sa?",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
+                        color: Theme
+                            .of(context)
+                            .secondaryHeaderColor,
                         fontSize: 16,
                       ),
                     ),
