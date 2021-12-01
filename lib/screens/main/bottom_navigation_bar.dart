@@ -322,7 +322,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
                       padding: EdgeInsets.only(
-                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.18 :  MediaQuery.of(context).size.height * 0.25,
+                          bottom: (!isExpanded) ? MediaQuery.of(context).size.height * 0.18 :  MediaQuery.of(context).size.height * 0.30,
                           left: 10),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(49.05722903231597, 20.303223278767245),
@@ -350,7 +350,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                       padding: MediaQuery.of(context).viewInsets,
                       height: (!isExpanded)
                           ? MediaQuery.of(context).size.height * 0.18
-                          : MediaQuery.of(context).size.height * 0.25,
+                          : MediaQuery.of(context).size.height * 0.30,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         borderRadius:
@@ -416,6 +416,47 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
             ),
           ),
           height20Space,
+          Padding(
+            padding: const EdgeInsets.only(
+                left: Dimensions.marginSize, right: Dimensions.marginSize),
+            child:
+            Container(
+              height: 50,
+              color: Colors.transparent,
+              child: iPark.iParkSignButton(
+                  context: context,
+                  text: "NASTAVIŤ REZERVÁCIE".toUpperCase(),
+                  onClicked: () async {
+                    iPark.iParkLoadingDialog(context);
+                    itemsLot.clear();
+                    try {
+                      final GetLotsInfoModel lots = await iPark.ApiLotsInfo(items[pressedLot].ID);
+                      setState(() {
+                        _getLotsInfoModel = lots;
+                      });
+                      if(_getLotsInfoModel.code == 200) {
+                        LotsItem obj = new LotsItem();
+                        obj.ID = _getLotsInfoModel.ID;
+                        obj.contact_phone = _getLotsInfoModel.contact_phone;
+                        obj.lore = _getLotsInfoModel.lore;
+                        obj.contact_email = _getLotsInfoModel.contact_email;
+                        itemsLot.add(obj);
+                        Navigator.pop(context);
+                        showDialogOfInfo(context);
+                      } else {
+                        Navigator.pop(context);
+                        iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                      }
+                      //Navigator.pop(context);
+                    } catch(e) {
+                      print(e);
+                      Navigator.pop(context);
+                      iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                    }
+                  }),
+            ),
+          ),
+          heightSpace,
           Padding(
             padding: const EdgeInsets.only(
                 left: Dimensions.marginSize, right: Dimensions.marginSize),

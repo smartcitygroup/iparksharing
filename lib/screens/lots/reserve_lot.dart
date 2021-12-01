@@ -203,6 +203,7 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                   ),
                 ),
               ),
+              heightSpace,
               Padding(
                 padding: EdgeInsets.only(left: 13, right: 13),
                 child: MaterialButton(
@@ -231,7 +232,7 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                       SizedBox(
                         width: 5,
                       ),
-                      Text(exitTime,
+                      Text(entranceTime,
                         style: TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ],
