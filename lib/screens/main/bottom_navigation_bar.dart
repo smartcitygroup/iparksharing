@@ -369,7 +369,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
                   ),
                 ])
               : Center(
-                  child: Text('Tu možno dačo bude keď dostanem lóve.'),
+                  child: Text('Tu bude zoznam rezervácií'),
                 ),
     );
   }

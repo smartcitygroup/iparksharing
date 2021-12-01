@@ -119,6 +119,8 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                         }
                       }
                     } else {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                       iPark.iParkSnackBar(context, "Rezervácia bola úspešná!", iParkColors.materialGreenA400);
                     }
                     Navigator.pop(context);
