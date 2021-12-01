@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ipark_sharing/api/add_lots.dart';
+import 'package:ipark_sharing/api/add_reservation.dart';
 import 'package:ipark_sharing/screens/main/bottom_navigation_bar.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
@@ -23,7 +24,7 @@ class ReserveSharingLot extends StatefulWidget {
 }
 
 class _ReserveSharingLotState extends State<ReserveSharingLot> {
-  LotsAddModel _lotsAddModel;
+  ReservationModel _reservationModel;
   TextEditingController descriptionInfo = TextEditingController(text: "");
   String fromDate = Tools.getFormattedDateSimple(DateTime.now().millisecondsSinceEpoch)
       .toString();
@@ -32,6 +33,9 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
   Future<DateTime> selectedDateFrom;
   Future<DateTime> selectedDateTo;
 
+  String ecvController = "";
+  String toDateNum = "";
+  String fromDateNum = "";
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +87,46 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
               color: iParkColors.mainTextColor,
               text: "PRIDAŤ",
               onClicked: () async {
-
+                  iPark.iParkLoadingDialog(context);
+                  try {
+                    final ReservationModel response =
+                    await iPark.ApiAddReservation(widget.ID, UserPreferences.getSaveUserID(), UserPreferences.getUserToken(),
+                      toDateNum, fromDateNum, ecvController,);
+                    setState(() {
+                      _reservationModel = response;
+                    });
+                    if(_reservationModel.error_message != null) {
+                      switch(_reservationModel.error_message) {
+                        case "selected_time_is_not_available": {
+                          iPark.iParkSnackBar(context, "Zadaný dátum nie je dostupný!", iParkColors.materialRedA400);
+                          break;
+                        }
+                        case "slot_was_not_found": {
+                          iPark.iParkSnackBar(context, "Zadane miesto uz pravdepodobne neexistuje", iParkColors.materialRedA400);
+                          break;
+                        }
+                        case "selected_time_is_reserved": {
+                          iPark.iParkSnackBar(context, "Zadaný čas už je rezervovaný!", iParkColors.materialRedA400);
+                          break;
+                        }
+                        case "reservation_was_not_found": {
+                          iPark.iParkSnackBar(context, "Rezervácia sa nenašla", iParkColors.materialRedA400);
+                          break;
+                        }
+                        case "cant_create_reservation": {
+                          iPark.iParkSnackBar(context, "Nepodarilo sa vytvoriť rezerváciu", iParkColors.materialRedA400);
+                          break;
+                        }
+                      }
+                    } else {
+                      iPark.iParkSnackBar(context, "Rezervácia bola úspešná!", iParkColors.materialGreenA400);
+                    }
+                    Navigator.pop(context);
+                  } catch(e) {
+                    Navigator.pop(context);
+                    iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                    print(e);
+                  }
               }),
         ),
       ),
@@ -201,6 +244,30 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                   ),
                 ),
               ),
+              height20Space,
+              Padding(padding: EdgeInsets.only(right: 13, left: 16),
+                child:
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextFieldWidget(
+                      hintText: 'EČV vozidla',
+                      obscureText: false,
+                      color: iParkColors.mainTextColor,
+                      enabled: true,
+                      imgAtributes: "atributes/sports-car.png",
+                      imgSuffix: null,
+                      onChanged: (value) {
+                        ecvController = value;
+                      },
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                ),
+              ),
+              height5Space,
             ]),
           ),
         ),
@@ -225,6 +292,7 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
       setState(() {
         if (value == null) return;
         toDate = Tools.getFormattedDateSimple(value.millisecondsSinceEpoch);
+        toDateNum = (value.millisecondsSinceEpoch / 1000).toString();
       });
     }, onError: (error) {
       print(error);
@@ -248,6 +316,7 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
       setState(() {
         if (value == null) return;
         fromDate = Tools.getFormattedDateSimple(value.millisecondsSinceEpoch);
+        fromDateNum = (value.millisecondsSinceEpoch / 1000).toString();
       });
     }, onError: (error) {
       print(error);
