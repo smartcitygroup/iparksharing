@@ -127,6 +127,7 @@ class _BottomNavigationBar1State extends State<BottomNavigationBar1> {
       backgroundColor: iParkColors.mainTextColor,
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
+        index: 1,
         animationDuration: Duration(milliseconds: 300),
         buttonBackgroundColor: iParkColors.mainBackGroundcolor,
         color: iParkColors.mainBackGroundcolor,
