@@ -112,7 +112,7 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                   onPressed: () {
                     showToDatePicker(context);
                   },
-                  color: iParkColors.mainBackGroundcolor,
+                  color: iParkColors.mainTextColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   child: Row(
@@ -127,20 +127,51 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
                               Img.get('atributes/calendar.png'),
                               fit: BoxFit.cover),
                         ),
-                        backgroundColor: Theme
-                            .of(context)
-                            .scaffoldBackgroundColor,
+                        backgroundColor: iParkColors.mainBackGroundcolor,
                       ),
                       SizedBox(
                         width: 5,
                       ),
                       Text(toDate, style: TextStyle(
-                          color: iParkColors.mainBackGroundcolor, fontSize: 14)),
+                          color: Colors.white, fontSize: 16)),
                     ],
                   ),
                 ),
               ),
-              height5Space,
+              height20Space,
+              Padding(
+                padding: EdgeInsets.only(left: 13, right: 13),
+                child: MaterialButton(
+                  height: 50,
+                  onPressed: () {
+                    showFromDatePicker(context,);
+                  },
+                  color: iParkColors.mainTextColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          alignment: Alignment.topCenter,
+                          child: Image.asset(
+                              Img.get('atributes/calendar.png'),
+                              fit: BoxFit.cover),
+                        ),
+                        backgroundColor: iParkColors.mainBackGroundcolor,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(fromDate, style: TextStyle(
+                          color: Colors.white, fontSize: 16)),
+                    ],
+                  ),
+                ),
+              ),
             ]),
           ),
         ),
@@ -165,6 +196,29 @@ class _ReserveSharingLotState extends State<ReserveSharingLot> {
       setState(() {
         if (value == null) return;
         toDate = Tools.getFormattedDateSimple(value.millisecondsSinceEpoch);
+      });
+    }, onError: (error) {
+      print(error);
+    });
+  }
+
+  void showFromDatePicker(BuildContext context) {
+    selectedDateFrom = showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2050),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.dark(),
+          child: child,
+        );
+      },
+    );
+    selectedDateFrom.then((value) {
+      setState(() {
+        if (value == null) return;
+        fromDate = Tools.getFormattedDateSimple(value.millisecondsSinceEpoch);
       });
     }, onError: (error) {
       print(error);
