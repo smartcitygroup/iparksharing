@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ipark_sharing/api/add_lots.dart';
 import 'package:ipark_sharing/api/add_reservation.dart';
+import 'package:ipark_sharing/api/add_reservation_slot.dart';
 import 'package:ipark_sharing/screens/main/bottom_navigation_bar.dart';
 import 'package:ipark_sharing/utils/colors.dart';
 import 'package:ipark_sharing/utils/constant.dart';
@@ -24,7 +25,7 @@ class AddReserveSharingLot extends StatefulWidget {
 }
 
 class _AddReserveSharingLotState extends State<AddReserveSharingLot> {
-  ReservationModel _reservationModel;
+  ReservationSlotModel _reservationModel;
   TextEditingController descriptionInfo = TextEditingController(text: "");
   String fromDate = Tools.getFormattedDateSimple(DateTime.now().millisecondsSinceEpoch)
       .toString();
@@ -41,8 +42,11 @@ class _AddReserveSharingLotState extends State<AddReserveSharingLot> {
 
   String noteController = "";
   String priceController = "";
+  String exitController = "";
   double toDateNum;
   double fromDateNum;
+  var toTime;
+  var fromTime;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +98,49 @@ class _AddReserveSharingLotState extends State<AddReserveSharingLot> {
               color: iParkColors.mainTextColor,
               text: "PRIDAŤ SLOT",
               onClicked: () async {
-                  iPark.iParkLoadingDialog(context);
+                iPark.iParkLoadingDialog(context);
+                try {
+                  final ReservationSlotModel response =
+                  await iPark.ApiAddReservationSlot(widget.ID, fromTime, toTime,
+                    priceController, int.parse(exitController * 60).toString(), noteController, UserPreferences.getSaveUserID(),
+                  UserPreferences.getUserToken());
+                  setState(() {
+                    _reservationModel = response;
+                  });
+                  if(_reservationModel.error_message != null) {
+                    switch(_reservationModel.error_message) {
+                      case "selected_time_is_not_available": {
+                        iPark.iParkSnackBar(context, "Zadaný dátum nie je dostupný!", iParkColors.materialRedA400);
+                        break;
+                      }
+                      case "slot_was_not_found": {
+                        iPark.iParkSnackBar(context, "Zadane miesto uz pravdepodobne neexistuje", iParkColors.materialRedA400);
+                        break;
+                      }
+                      case "selected_time_is_reserved": {
+                        iPark.iParkSnackBar(context, "Zadaný čas už je rezervovaný!", iParkColors.materialRedA400);
+                        break;
+                      }
+                      case "reservation_was_not_found": {
+                        iPark.iParkSnackBar(context, "Rezervácia sa nenašla", iParkColors.materialRedA400);
+                        break;
+                      }
+                      case "cant_create_reservation": {
+                        iPark.iParkSnackBar(context, "Nepodarilo sa vytvoriť rezerváciu", iParkColors.materialRedA400);
+                        break;
+                      }
+                    }
+                  } else {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    iPark.iParkSnackBar(context, "Rezervačný slot úspešne pridaný!", iParkColors.materialGreenA400);
+                  }
+                  Navigator.pop(context);
+                } catch(e) {
+                  Navigator.pop(context);
+                  iPark.iParkSnackBar(context, "Zlé internetové pripojenie!", iParkColors.materialRedA400);
+                  print(e);
+                }
               }),
         ),
       ),
@@ -346,7 +392,7 @@ class _AddReserveSharingLotState extends State<AddReserveSharingLot> {
                       imgAtributes: "atributes/wall-clock.png",
                       imgSuffix: null,
                       onChanged: (value) {
-                        priceController = value;
+                        exitController = value;
                       },
                     ),
                     SizedBox(
@@ -431,7 +477,7 @@ class _AddReserveSharingLotState extends State<AddReserveSharingLot> {
         print('2 : ' + entranceTime);
       });
       print(selectedEntranceTime.periodOffset);
-      var finalTime = selectedEntranceTime.hour * 3600 + selectedEntranceTime.minute * 60;
+      fromTime = selectedEntranceTime.hour * 3600 + selectedEntranceTime.minute * 60;
       //saveMainPriceList("&open_from=" + finalTime.toString());
     }
   }
@@ -455,7 +501,7 @@ class _AddReserveSharingLotState extends State<AddReserveSharingLot> {
         selectedExitTime.toString().split('TimeOfDay(')[1].split(')')[0];
         print('2 : ' + exitTime);
       });
-      var finalTime = selectedExitTime.hour * 3600 + selectedExitTime.minute * 60;
+      toTime = selectedExitTime.hour * 3600 + selectedExitTime.minute * 60;
       //saveMainPriceList("&open_to=" + finalTime.toString());
     }
   }
