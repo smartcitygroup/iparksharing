@@ -1,4 +1,5 @@
 # Module - iPark Sharing
+Link na prezentáciu: https://github.com/smartcitygroup/iparksharing/blob/main/SCGP-IPARK-SHARING.pptx
 > www.smartcity-group.eu
 > 
 > www.ipark.systems
